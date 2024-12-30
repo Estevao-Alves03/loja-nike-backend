@@ -1,23 +1,23 @@
 # Use a imagem base do Node.js
-FROM node:18-alpine
+FROM node:18
 
-# Defina o diretório de trabalho dentro do contêiner
+# Define o diretório de trabalho
 WORKDIR /app-backend
 
-# Copie os arquivos do package.json e package-lock.json (se existir)
-COPY package*.json ./
+# Copie os arquivos necessários
+COPY package.json pnpm-lock.yaml ./
 
-# Instale o pnpm globalmente
-RUN npm install -g pnpm
+# Instale as dependências
+RUN npm install -g pnpm && pnpm install
 
-# Instale as dependências do projeto
-RUN pnpm install
-
-# Copie o restante do código para dentro do contêiner
+# Copie o restante do projeto
 COPY . .
 
-# Exponha a porta do backend
-EXPOSE 3000
+# Compile o TypeScript
+RUN pnpm build
 
-# Comando padrão para iniciar a aplicação
-CMD ["pnpm", "start"]
+# Exponha a porta
+EXPOSE 3001
+
+# Inicie o servidor
+CMD ["node", "build/server.js"]
