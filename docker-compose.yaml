@@ -9,6 +9,7 @@ services:
       DB_NAME: db_nike
       DB_HOST: db
       JWT_SECRET: fsdf64s6df11s6dfs684f8sd
+      JWT_EXPIRES_IN: 1h
     volumes:
       - ./:/app-backend
       - /app-backend/node_modules

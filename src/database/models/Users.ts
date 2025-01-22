@@ -9,6 +9,7 @@ class User extends Model {
   declare birth: Date;
   declare cpf: string;
   declare email: string;
+  declare password: string;
   declare phone: string;
   declare nameStreet: string;
   declare neighborhood: string;
@@ -55,6 +56,10 @@ User.init({
     validate: {
       isEmail: true
     }
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   phone: {
     type: DataTypes.STRING,

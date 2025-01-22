@@ -1,3 +1,6 @@
-const resp = (s: number, m: unknown) => ({status: s, message: m})
-
-export default resp
+function resp<T>(status: number, message: T) {
+    return { status, message };
+  }
+  
+  export default resp;
+  
