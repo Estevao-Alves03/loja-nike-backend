@@ -1,9 +1,9 @@
 import { CreationAttributes, ModelStatic } from "sequelize";
+import { secret, options } from "../config/jwtConfig";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../database/models/Users";
 import resp from "../utils/resp";
-import { secret, options } from "../config/jwtConfig";
 
 class UserServices {
   private model: ModelStatic<User> = User;

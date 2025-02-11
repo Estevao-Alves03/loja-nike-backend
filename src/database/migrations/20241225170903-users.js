@@ -42,18 +42,6 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
         allowNull: false
-      },
-      name_street: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      neighborhood: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      complement: {
-        type: Sequelize.STRING,
-        allowNull: true
       }
     });
   },

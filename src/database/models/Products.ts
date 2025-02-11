@@ -9,13 +9,13 @@ class Products extends Model {
 }
 
 Products.init({
-  codProduct: {
+  cod_product: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
   },
-  nameProduct: {
+  name_product: {
     type: DataTypes.STRING,
     unique: true,
     allowNull: false

@@ -22,7 +22,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       }
-      // Se precisar de mais colunas, adicione aqui
     });
   },
 

@@ -1,6 +1,5 @@
 import { Router } from "express";
 import ProductController from "../controller/products.controller";
-import PurchaseController from "../controller/purchase.controller";
 import UserController from "../controller/user.controller";
 import ContactController from "../controller/contacts.controller";
 import { asyncHandler } from "../utils/asyncHandler";
@@ -8,7 +7,6 @@ import { asyncHandler } from "../utils/asyncHandler";
 const router = Router();
 const userController = new UserController();
 const productController = new ProductController();
-const purchaseController = new PurchaseController();
 const contactController = new ContactController();
 
 // Rotas de autenticação
@@ -28,11 +26,7 @@ router.post('/products', asyncHandler(productController.create.bind(productContr
 router.put('/products/:id', asyncHandler(productController.update.bind(productController)));
 router.delete('/products/:id', asyncHandler(productController.delete.bind(productController)));
 
-// Rotas de compras
-router.get('/purchases', asyncHandler(purchaseController.get.bind(purchaseController)));
-router.get('/purchases/:id', asyncHandler(purchaseController.getById.bind(purchaseController)));
-router.put('/purchases/:id', asyncHandler(purchaseController.update.bind(purchaseController)));
-router.delete('/purchases/:id', asyncHandler(purchaseController.delete.bind(purchaseController)));
+// Rotas de compras 
 
 // Rotas de contatos
 router.get('/contacts', asyncHandler(contactController.get.bind(contactController)));

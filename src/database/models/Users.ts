@@ -1,7 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import db from "./index"; // ajuste para o seu path real
 
-
 class User extends Model {
   declare id: number;
   declare name: string;
@@ -12,9 +11,6 @@ class User extends Model {
   declare password: string;
   declare confirmPassword: string;
   declare phone: string;
-  declare nameStreet: string;
-  declare neighborhood: string;
-  declare complement: string;
 }
 
 User.init({
@@ -71,19 +67,6 @@ User.init({
   phone: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  nameStreet: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    field: 'name_street'
-  },
-  neighborhood: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  complement: {
-    type: DataTypes.STRING,
-    allowNull: true
   }
 }, {
   sequelize: db,
