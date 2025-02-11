@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 import router from './routes'
-import userController from './controller/user.controller'
 
 const app = express()
 

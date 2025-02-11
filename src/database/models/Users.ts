@@ -10,6 +10,7 @@ class User extends Model {
   declare cpf: string;
   declare email: string;
   declare password: string;
+  declare confirmPassword: string;
   declare phone: string;
   declare nameStreet: string;
   declare neighborhood: string;
@@ -34,7 +35,13 @@ User.init({
   },
   birth: {
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isDate: {
+        args: true,
+        msg: "A data de nascimento deve ser válida"
+      }
+    }
   },
   cpf: {
     type: DataTypes.STRING,

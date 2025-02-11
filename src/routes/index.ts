@@ -12,12 +12,12 @@ const purchaseController = new PurchaseController();
 const contactController = new ContactController();
 
 // Rotas de autenticação
-router.post('/register', asyncHandler(userController.register.bind(userController)));
 router.post('/login', asyncHandler(userController.login.bind(userController)));
 
 // Rotas de usuário
 router.get('/users', asyncHandler(userController.get.bind(userController)));
 router.get('/users/:id', asyncHandler(userController.getById.bind(userController)));
+router.post('/users', asyncHandler(userController.register.bind(userController)))
 router.put('/users/:id', asyncHandler(userController.update.bind(userController)));
 router.delete('/users/:id', asyncHandler(userController.delete.bind(userController)));
 
