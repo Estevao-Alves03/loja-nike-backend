@@ -1,7 +1,7 @@
-import { Model, DataType, DataTypes, } from "sequelize";
+import { Model, DataTypes, } from "sequelize";
 import db from './index'
 
-class UserAddress extends Model {
+class Address extends Model {
     declare id: number;
     declare user_id: number;
     declare name_street: string;
@@ -9,7 +9,7 @@ class UserAddress extends Model {
     declare complement: string;
 }
 
-UserAddress.init({
+Address.init({
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -43,9 +43,9 @@ UserAddress.init({
     }
 },{
     sequelize: db,
-    tableName: 'user_address',
+    tableName: 'address',
     timestamps: false,
     underscored: true
 })
 
-export default UserAddress
+export default Address

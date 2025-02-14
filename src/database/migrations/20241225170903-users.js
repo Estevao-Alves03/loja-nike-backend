@@ -36,8 +36,7 @@ module.exports = {
         allowNull: false,
       },
       confirm_password: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: Sequelize.STRING
       },
       phone: {
         type: Sequelize.STRING,

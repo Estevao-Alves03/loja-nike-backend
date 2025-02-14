@@ -1,18 +1,23 @@
 import { CreationAttributes, ModelStatic } from "sequelize";
 import { secret, options } from "../config/jwtConfig";
+import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../database/models/Users";
+import UserAddress from "../database/models/Address";
 import resp from "../utils/resp";
 
 class UserServices {
   private model: ModelStatic<User> = User;
+
+
 
 // busca todos
   async get() {
     const users = await this.model.findAll();
     return resp(200, users);
   }
+
 
 // busca pelo id
   async getById(id: number) {
@@ -22,29 +27,53 @@ class UserServices {
     }
     return resp(200, user);
   }
+
+
+
 // cria
-async create(user: CreationAttributes<User>) {
+async create(user: CreationAttributes<User> & { address: CreationAttributes<UserAddress> }) {
+  const sequelizeInstance = User.sequelize; // Obtém a instância do Sequelize
+  if (!sequelizeInstance) {
+    return resp(500, "Erro interno: instância do Sequelize não encontrada.");
+  }
+
+  const transaction = await sequelizeInstance.transaction(); // Inicia a transação
   try {
-    const existingUser = await this.findByEmail(user.email);
+    // Verifica se o email já existe
+    const existingUser = await User.findOne({ where: { email: user.email }, transaction });
     if (existingUser) {
+      await transaction.rollback();
       return resp(400, "Email já cadastrado!");
     }
 
+    // Criptografa a senha
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    console.log("Senha criptografada antes de salvar:", hashedPassword);
+    
+    // Cria o usuário na tabela `users`
+    const newUser = await User.create(
+      { ...user, password: hashedPassword },
+      { transaction }
+    );
 
-    // Teste imediatamente antes de salvar no banco
-    const isMatch = await bcrypt.compare(user.password, hashedPassword);
-    console.log("A senha digitada confere com a hash gerada?", isMatch);
+    // Cria o endereço na tabela `user_address` e associa ao usuário recém-criado
+    const newAddress = await UserAddress.create(
+      { ...user.address, userId: newUser.id }, 
+      { transaction }
+    );
 
-    const newUser = await this.model.create({ ...user, password: hashedPassword });
+    // Confirma a transação
+    await transaction.commit();
+    return resp(201, { user: newUser, address: newAddress });
 
-    return resp(201, newUser);
   } catch (error) {
-    console.error("Erro ao criar usuário:", error);
+    await transaction.rollback(); 
+    console.error("Erro ao criar usuário e endereço:", error);
     return resp(500, "Erro interno ao criar usuário");
   }
-}  
+}
+
+
+
 // fazer autenticaçao
 async login(email: string, password: string) {
   const user = await this.findByEmail(email);
@@ -62,6 +91,7 @@ async login(email: string, password: string) {
 }
 
 
+
 // atualiza
   async update(id: number, user: Partial<User>) {
     const existingUser = await this.findById(id);
@@ -74,6 +104,8 @@ async login(email: string, password: string) {
     return resp(200, updatedUser);
   }
 
+
+  
 //deleta
   async delete(id: number) {
     const user = await this.findById(id);

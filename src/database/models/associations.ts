@@ -1,12 +1,12 @@
 import Users from "./Users";
-import UserAddress from "./UserAddress";
+import Address from "./Address";
 import Products from "./Products";
 import OrderItems from "./OrderItems";
 import Orders from "./Orders";
 
 // um usuario tem um endereço, e um endereço pertence a um usuario
-Users.hasOne(UserAddress, { foreignKey: 'user_id', as: 'address' });
-UserAddress.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
+Users.hasOne(Address, { foreignKey: 'user_id', as: 'address' });
+Address.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
 //  um usuario pode ter varios pedidos, um pedido pertence a um usuario 
 Users.hasMany(Orders, { foreignKey: 'user_id', as: 'orders'})
 Orders.belongsTo(Users, { foreignKey: 'user_id', as: 'user'})
@@ -26,5 +26,5 @@ export default {
     Products,
     OrderItems,
     Orders,
-    UserAddress
+    Address
 }
