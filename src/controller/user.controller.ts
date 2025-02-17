@@ -30,6 +30,9 @@ class UserController {
       next(error);
     }
   }
+
+
+  // registrando usuario e endereço
   async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     console.log("📥 Dados recebidos no backend:", req.body);
   
