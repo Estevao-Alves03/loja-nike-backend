@@ -6,6 +6,7 @@ import ContactController from "../controller/contacts.controller";
 import AddressController from "../controller/address.controller";
 import UserController from "../controller/user.controller";
 import OrderController from "../controller/order.controller";
+import OrderItemsController from "../controller/order_items.controller";
 
 const router = Router();
 const productController = new ProductController();
@@ -13,6 +14,7 @@ const contactController = new ContactController();
 const AddressControler = new AddressController()
 const userController = new UserController();
 const orderController = new OrderController()
+const orderItemsController = new OrderItemsController()
 
 // Rotas de autenticação
 router.post('/login', asyncHandler(userController.login.bind(userController)));
@@ -44,6 +46,13 @@ router.get('/orders/:id', asyncHandler(orderController.getOrderById.bind(orderCo
 router.post('/orders', asyncHandler(orderController.create.bind(orderController)))
 router.put('/orders/:id', asyncHandler(orderController.update.bind(orderController)))
 router.delete('/orders/:id', asyncHandler(orderController.delete.bind(orderController)))
+
+// Rotas de items dos pedidos
+router.get('/order_items', asyncHandler(orderItemsController.get.bind(orderItemsController)))
+router.get('/order_items/:id', asyncHandler(orderItemsController.getById.bind(orderItemsController)))
+router.post('/order_items', asyncHandler(orderItemsController.create.bind(orderItemsController)))
+router.put('/order_items/:id', asyncHandler(orderItemsController.update.bind(orderItemsController)))
+router.delete('/order_items/;id', asyncHandler(orderItemsController.destroy.bind(orderItemsController)))
 
 // Rotas de contatos
 router.get('/contacts', asyncHandler(contactController.get.bind(contactController)));

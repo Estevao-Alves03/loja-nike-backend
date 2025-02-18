@@ -26,41 +26,51 @@ class OrderController {
             next(error)
         }
     }
+// cria um novo pedido 
+async create(req: Request, res: Response, next: NextFunction) {
+    console.log("📦 Dados recebidos do payment:", req.body);
 
-    // cria um novo pedido 
-    async create(req: Request, res: Response, next: NextFunction){
-        console.log("dados recebidos do payment", req.body)
-        try {
-            const {userId, totalPrice, discount, paymentMethod, cartItems} = req.body
-            
-            const userAddress = await Address.findOne({where: {user_id: userId}})
+    try {
+        const { user_id: userId, total_price: totalPrice, discount, payment_method: paymentMethod, cart } = req.body;
 
-            if(!userAddress){
-               return res.status(400).json({message: "endereço do usuario nao encontrado"})
-            }
-
-            const newOrder = await Orders.create({
-                user_id: userId,
-                total_price: totalPrice,
-                discount: discount,
-                payment_method: paymentMethod,
-                shopping_address: `${userAddress.name_street}, ${userAddress.neighborhood}, ${userAddress.complement || ''}`,
-                status: "peding",
-            })
-
-            const orderItemsData = cartItems.map((item: any) => ({
-                order_id: newOrder.id,
-                product_id: item.cod_product,
-                quantity: item.quantity,
-            }))
-
-            await OrderItems.bulkCreate(orderItemsData)
-
-            res.status(201).json({message: "pedido criado com sucesso!", order: newOrder})
-        } catch (error) {
-            next(error)
+        if (!userId || !totalPrice || !paymentMethod || !cart || cart.length === 0) {
+            return res.status(400).json({ message: "Dados inválidos para criar o pedido." });
         }
+
+        // Busca o endereço do usuário
+        const userAddress = await Address.findOne({ where: { user_id: userId } });
+        if (!userAddress) {
+            return res.status(400).json({ message: "Endereço do usuário não encontrado" });
+        }
+
+        // Cria um novo pedido
+        const newOrder = await Orders.create({
+            user_id: userId,
+            total_price: totalPrice,
+            discount: discount,
+            payment_method: paymentMethod,
+            shopping_address: `${userAddress.name_street}, ${userAddress.neighborhood}, ${userAddress.complement || ''}`,
+            status: "pending",
+        });
+
+        // Mapeia os itens do pedido e adiciona o `order_id`
+        const orderItemsData = cart.map((item: any) => ({
+            order_id: newOrder.id,  // FK para `Orders`
+            product_id: item.cod_product,
+            quantity: item.quantity,
+        }));
+
+        // Cria os itens do pedido no banco
+        await OrderItems.bulkCreate(orderItemsData);
+
+        res.status(201).json({
+            message: "Pedido criado com sucesso!",
+            order_id: newOrder.id, // Retornamos o `order_id`
+        });
+    } catch (error) {
+        next(error);
     }
+}
 
 
     // atualiza um novo pedido
