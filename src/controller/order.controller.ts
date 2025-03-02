@@ -10,8 +10,8 @@ class OrderController {
     // busca todos os pedidos
     async get(req: Request, res: Response, next: NextFunction){
         try {
-             const{status, message} = await this.service.get()
-             res.status(status).json(message)
+             const{status, data} = await this.service.get()
+             res.status(status).json(data)
         } catch (error) {
             next(error)
         }

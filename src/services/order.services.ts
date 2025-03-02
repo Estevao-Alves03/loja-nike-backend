@@ -6,9 +6,20 @@ class OrderService {
     private model: ModelStatic<Orders> = Orders
 
     // busca todos os pedidos
-    async get(){
-        const orders = await this.model.findAll()
-        return resp(200, orders)
+    async get() {
+        try {
+            const orders = await Orders.findAll(); // Busca todos os pedidos
+
+            return {
+                status: 200,
+                data: orders, // Alteramos de `message` para `data`
+            };
+        } catch (error) {
+            return {
+                status: 500,
+                data: { message: "Erro ao buscar pedidos" },
+            };
+        }
     }
 
     // busca um pedido pelo id
