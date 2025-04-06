@@ -28,8 +28,8 @@ router.put('/users/:id', authenticateToken, asyncHandler(userController.update.b
 router.delete('/users/:id',authenticateToken, asyncHandler(userController.delete.bind(userController)));
 
 // Rotas de produtos
-router.get('/products', authenticateToken, (productController.get.bind(productController)));
-router.get('/products/:id', authenticateToken, asyncHandler(productController.getById.bind(productController)));
+router.get('/products', asyncHandler(productController.get.bind(productController)));
+router.get('/products/:id', asyncHandler(productController.getById.bind(productController)));
 router.post('/products',authenticateToken, asyncHandler(productController.create.bind(productController)));
 router.put('/products/:id',authenticateToken, asyncHandler(productController.update.bind(productController)));
 router.delete('/products/:id',authenticateToken, asyncHandler(productController.delete.bind(productController)));
