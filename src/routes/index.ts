@@ -21,7 +21,7 @@ const orderItemsController = new OrderItemsController()
 router.post('/login', asyncHandler(userController.login.bind(userController)));
 
 // Rotas de usuário
-router.get('/users', authenticateToken, asyncHandler(userController.get.bind(userController)));
+router.get('/users', asyncHandler(userController.get.bind(userController)));
 router.get('/users/:id', authenticateToken, asyncHandler(userController.getById.bind(userController)));
 router.post('/users', asyncHandler(userController.register.bind(userController)))
 router.put('/users/:id', authenticateToken, asyncHandler(userController.update.bind(userController)));
@@ -35,7 +35,7 @@ router.put('/products/:id',authenticateToken, asyncHandler(productController.upd
 router.delete('/products/:id',authenticateToken, asyncHandler(productController.delete.bind(productController)));
 
 // Rotas de endereço
-router.get('/addresses',authenticateToken, asyncHandler(AddressControler.getAll.bind(AddressControler)))
+router.get('/addresses', asyncHandler(AddressControler.getAll.bind(AddressControler)))
 router.get("/addresses/:userId",authenticateToken, asyncHandler(AddressControler.getByUserId.bind(AddressControler)));
 router.post("/addresses",authenticateToken, asyncHandler(AddressControler.create.bind(AddressControler)));
 router.put("/addresses/:userId",authenticateToken, asyncHandler(AddressControler.update.bind(AddressControler)));
@@ -56,7 +56,7 @@ router.put('/order_items/:id',authenticateToken, asyncHandler(orderItemsControll
 router.delete('/order_items/:id', authenticateToken, asyncHandler(orderItemsController.destroy.bind(orderItemsController)))
 
 // Rotas de contatos
-router.get('/contacts',authenticateToken, asyncHandler(contactController.get.bind(contactController)));
+router.get('/contacts', asyncHandler(contactController.get.bind(contactController)));
 router.get('/contacts/:id',authenticateToken, asyncHandler(contactController.getById.bind(contactController)));
 router.post('/contacts',authenticateToken, asyncHandler(contactController.post.bind(contactController)));
 router.put('/contacts/:id',authenticateToken, asyncHandler(contactController.update.bind(contactController)));
