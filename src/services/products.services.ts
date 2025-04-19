@@ -1,6 +1,7 @@
 import { CreationAttributes, ModelStatic } from "sequelize";
 import resp from "../utils/resp";
 import Product from "../database/models/Products";
+import Orders from "../database/models/Orders";
 
 class ProductServices {
     private model: ModelStatic<Product> = Product
@@ -38,6 +39,10 @@ class ProductServices {
             {where: {cod_product: id}}
         )
         return resp(200, deleteproduct)
+    }
+
+    async deleteAll(){
+        await Orders.destroy({where: {}})
     }
 }
 

@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import User from "../database/models/Users";
 import UserAddress from "../database/models/Address";
 import resp from "../utils/resp";
+import Orders from "../database/models/Orders";
 
 class UserServices {
   private model: ModelStatic<User> = User;
@@ -124,6 +125,13 @@ async login(email: string, password: string) {
   private async findById(id: number) {
     return await this.model.findByPk(id);
   }
+
+  async deleteAll(){
+    await Orders.destroy({where: {}})
+  }
+
+
+
 }
 
 export default UserServices;

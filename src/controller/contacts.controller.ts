@@ -53,6 +53,11 @@ class ContactController {
            next(error) 
         }
     }
+
+    async deleteAll(req: Request, res: Response, next: NextFunction){
+        await this.service.deleteAll()
+        res.status(200).json({message: "todos os contatos foram excluidos com sucesso"})
+    }
 }
 
 export default ContactController

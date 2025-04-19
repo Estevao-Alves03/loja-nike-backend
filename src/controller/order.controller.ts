@@ -93,6 +93,11 @@ async create(req: Request, res: Response, next: NextFunction) {
         }
     }
 
+    async deleteAll(req: Request, res: Response, next: NextFunction){
+        await this.service.deleteAll()
+        res.status(200).json({message: "todos os pedidos foram apagados com sucesso"})
+    }
+
 
 }
 

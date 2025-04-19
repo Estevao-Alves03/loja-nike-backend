@@ -53,6 +53,11 @@ class AddressController {
             next(error);
         }
     }
+
+    async deleteAll(req: Request, res: Response, next: NextFunction){
+        await this.service.deleteAll()
+        res.status(200).json({message: "todos os endereços foram excluidos com sucesso"})
+    }
 }
 
 export default AddressController;

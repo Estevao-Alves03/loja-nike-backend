@@ -176,6 +176,14 @@ class UserController {
       next(error);
     }
   }
+
+  async deleteAll(req: Request, res: Response, next: NextFunction){
+    await this.service.deleteAll()
+    res.status(200).json({message: "todos os usuarios foram deletados"})
+  }
+
+
+
 }
 
 export default UserController;

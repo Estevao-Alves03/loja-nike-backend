@@ -1,6 +1,7 @@
 import { CreationAttributes, ModelStatic } from "sequelize";
 import resp from "../utils/resp";
 import OrderItems from "../database/models/OrderItems";
+import Orders from "../database/models/Orders";
 
 class OrderItemsService {
     private model: ModelStatic<OrderItems> = OrderItems;
@@ -40,6 +41,10 @@ class OrderItemsService {
 
         await orderItem.destroy();
         return resp(200, { message: "Item do pedido excluído com sucesso!" });
+    }
+
+    async deleteAll(){
+        await Orders.destroy({where: {}})
     }
 }
 

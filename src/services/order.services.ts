@@ -45,6 +45,11 @@ class OrderService {
        const deleteOrder = await this.model.destroy({where: {id:id}})
        return resp(200, deleteOrder)
     }
+
+    async deleteAll() {
+        await Orders.destroy({ where: {} }); 
+      }
+      
 }
 
 export default OrderService

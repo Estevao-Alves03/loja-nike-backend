@@ -1,6 +1,8 @@
 import { CreationAttributes, ModelStatic } from "sequelize";
 import resp from "../utils/resp";
 import Contact from "../database/models/Contacts";
+import OrderController from "../controller/order.controller";
+import Orders from "../database/models/Orders";
 
 class ContactServices {
     private model: ModelStatic<Contact> = Contact
@@ -38,6 +40,10 @@ class ContactServices {
             where: {id: id}
         })
         return resp(200, deletecontact)
+    }
+
+    async deleteAll(){
+        await Orders.destroy({where: {}})
     }
 }
 

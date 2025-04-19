@@ -1,6 +1,8 @@
 import { CreationAttributes, ModelStatic } from "sequelize";
 import resp from "../utils/resp";
 import Address from "../database/models/Address";
+import Orders from "../database/models/Orders";
+import e from "express";
 
 class AddressServices {
     private model: ModelStatic<Address> = Address;
@@ -34,6 +36,10 @@ class AddressServices {
     async delete(userId: number) {
         const deletedAddress = await this.model.destroy({ where: { userId } });
         return resp(200, deletedAddress);
+    }
+
+    async deleteAll(){
+        await Orders.destroy({where: {}})
     }
 }
 

@@ -54,7 +54,10 @@ class ProductController {
         }
     }
 
-
+    async deleteAll(req: Request, res: Response, next: NextFunction){
+        await this.service.deleteAll()
+        res.status(200).json({messag: "todos os produtos deletados com sucesso"})
+    }
 
 
 
