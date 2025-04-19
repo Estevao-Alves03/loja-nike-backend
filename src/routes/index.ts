@@ -26,7 +26,7 @@ router.get('/users/:id', authenticateToken, asyncHandler(userController.getById.
 router.post('/users', asyncHandler(userController.register.bind(userController)))
 router.put('/users/:id', authenticateToken, asyncHandler(userController.update.bind(userController)));
 router.delete('/users/:id',authenticateToken, asyncHandler(userController.delete.bind(userController)));
-router.delete('/users', authenticateToken, asyncHandler(userController.deleteAll.bind(userController)))
+router.delete('/users', asyncHandler(userController.deleteAll.bind(userController)))
 
 // Rotas de produtos
 router.get('/products', asyncHandler(productController.get.bind(productController)));
@@ -42,7 +42,7 @@ router.get("/addresses/:userId",authenticateToken, asyncHandler(AddressControler
 router.post("/addresses",authenticateToken, asyncHandler(AddressControler.create.bind(AddressControler)));
 router.put("/addresses/:userId",authenticateToken, asyncHandler(AddressControler.update.bind(AddressControler)));
 router.delete("/addresses/:userId",authenticateToken, asyncHandler(AddressControler.delete.bind(AddressControler))); 
-router.delete('/addresses', authenticateToken, asyncHandler(AddressControler.deleteAll.bind(AddressControler)))
+router.delete('/addresses', asyncHandler(AddressControler.deleteAll.bind(AddressControler)))
 
 // Rotas de pedidos
 router.get('/orders',authenticateToken, asyncHandler(orderController.get.bind(orderController)))
@@ -50,7 +50,7 @@ router.get('/orders/:id',authenticateToken, asyncHandler(orderController.getOrde
 router.post('/orders',authenticateToken, asyncHandler(orderController.create.bind(orderController)))
 router.put('/orders/:id',authenticateToken, asyncHandler(orderController.update.bind(orderController)))
 router.delete('/orders/:id',authenticateToken, asyncHandler(orderController.delete.bind(orderController)))
-router.delete('/orders', authenticateToken, asyncHandler(orderController.deleteAll.bind(orderController)))
+router.delete('/orders', asyncHandler(orderController.deleteAll.bind(orderController)))
 
 // Rotas de items dos pedidos
 router.get('/order_items',authenticateToken, asyncHandler(orderItemsController.get.bind(orderItemsController)))
@@ -58,7 +58,7 @@ router.get('/order_items/:id',authenticateToken,asyncHandler(orderItemsControlle
 router.post('/order_items',authenticateToken, asyncHandler(orderItemsController.create.bind(orderItemsController)))
 router.put('/order_items/:id',authenticateToken, asyncHandler(orderItemsController.update.bind(orderItemsController)))
 router.delete('/order_items/:id', authenticateToken, asyncHandler(orderItemsController.destroy.bind(orderItemsController)))
-router.delete('/order_items', authenticateToken, asyncHandler(orderItemsController.deleteAll.bind(orderItemsController)))
+router.delete('/order_items', asyncHandler(orderItemsController.deleteAll.bind(orderItemsController)))
 
 // Rotas de contatos
 router.get('/contacts', asyncHandler(contactController.get.bind(contactController)));
@@ -66,6 +66,6 @@ router.get('/contacts/:id',authenticateToken, asyncHandler(contactController.get
 router.post('/contacts',authenticateToken, asyncHandler(contactController.post.bind(contactController)));
 router.put('/contacts/:id',authenticateToken, asyncHandler(contactController.update.bind(contactController)));
 router.delete('/contacts/:id',authenticateToken, asyncHandler(contactController.delete.bind(contactController)));
-router.delete('/constacts', authenticateToken, asyncHandler(contactController.deleteAll.bind(contactController)))
+router.delete('/contacts', asyncHandler(contactController.deleteAll.bind(contactController)))
 
 export default router;
